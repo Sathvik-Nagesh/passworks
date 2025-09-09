@@ -12,9 +12,11 @@ A comprehensive, client-side password security toolkit designed for cybersecurit
 - **Visual Feedback**: Color-coded strength meter and detailed security recommendations
 
 ### 🔑 **Secure Password Generator**
+- **Multiple Modes**: Random, Passphrase (Diceware), Pronounceable, and Template patterns
 - **Customizable Length**: Generate passwords from 8 to 128 characters
 - **Character Set Control**: Choose from uppercase, lowercase, numbers, and symbols
 - **Advanced Options**: Exclude similar characters (0O1lI) and ambiguous characters
+- **Enforcement Rules**: Require at least one of each selected set, avoid runs/sequences
 - **Real-time Stats**: Live entropy and strength calculation for generated passwords
 - **One-Click Copy**: Easy copying to clipboard with visual feedback
 
@@ -42,8 +44,8 @@ A comprehensive, client-side password security toolkit designed for cybersecurit
 
 1. **Clone or Download**:
    ```bash
-   git clone <repository-url>
-   cd password-security-suite
+   git clone https://github.com/Sathvik-Nagesh/passworks.git
+   cd passworks
    ```
 
 2. **Open in Browser**:
@@ -67,17 +69,24 @@ A comprehensive, client-side password security toolkit designed for cybersecurit
 
 ### Password Generator
 1. Navigate to the "Generator" tab
-2. Adjust password length using the slider (8-128 characters)
-3. Select desired character types:
+2. Select generation mode:
+   - **Random**: Classic character-based generation
+   - **Passphrase**: Diceware-style word combinations
+   - **Pronounceable**: Syllable-based passwords
+   - **Template**: Pattern-based generation (Cvcv-####)
+3. Adjust password length using the slider (8-128 characters)
+4. Select desired character types:
    - Uppercase letters (A-Z)
    - Lowercase letters (a-z)
    - Numbers (0-9)
    - Special symbols (!@#$%^&*)
-4. Choose advanced options:
+5. Choose advanced options:
    - Exclude similar characters
    - Exclude ambiguous characters
-5. Click "Generate New" to create a password
-6. Use "Copy" button to copy to clipboard
+   - Require at least one of each selected set
+   - Avoid runs and sequences
+6. Click "Generate New" to create a password
+7. Use "Copy" button to copy to clipboard
 
 ### Breach Checker
 1. Go to the "Breach Checker" tab
@@ -99,6 +108,12 @@ A comprehensive, client-side password security toolkit designed for cybersecurit
    - Copy passwords to clipboard
    - Delete stored passwords
 5. Export/Import for backup and migration
+
+### Settings
+1. Navigate to the "Settings" tab
+2. Configure lock timeout for password manager
+3. Set default password length for generator
+4. Save settings to persist across sessions
 
 ## 🛠️ Technical Details
 
@@ -124,10 +139,12 @@ A comprehensive, client-side password security toolkit designed for cybersecurit
 ## 📁 Project Structure
 
 ```
-password-security-suite/
+passworks/
 ├── index.html          # Main HTML file
 ├── styles.css          # CSS styles and responsive design
 ├── script.js           # JavaScript functionality
+├── manifest.json       # PWA manifest
+├── sw.js              # Service worker
 └── README.md          # This documentation
 ```
 
@@ -146,6 +163,7 @@ password-security-suite/
 - Cryptographic functions for security
 - Local storage management
 - UI/UX components and animations
+- PWA support with service worker
 
 ## 🎨 Design Philosophy
 
