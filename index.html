@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassWorks - Cybersecurity Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-shield-alt"></i> PassWorks</h1>
+                <p>Professional password security toolkit for cybersecurity professionals</p>
+            </div>
+            <div class="header-actions" role="toolbar" aria-label="Quick settings">
+                <button id="openOnboarding" class="action-toggle" aria-label="Open help (press ?)">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="action-text">Help</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="strength">
+                <i class="fas fa-chart-line"></i> Strength Analyzer
+            </button>
+            <button class="nav-tab" data-tab="generator">
+                <i class="fas fa-key"></i> Generator
+            </button>
+            <button class="nav-tab" data-tab="breach">
+                <i class="fas fa-search"></i> Breach Checker
+            </button>
+            <button class="nav-tab" data-tab="manager">
+                <i class="fas fa-lock"></i> Password Manager
+            </button>
+            <button class="nav-tab" data-tab="settings">
+                <i class="fas fa-gear"></i> Settings
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Password Strength Analyzer -->
+            <section id="strength" class="tab-content active">
+                <div class="tool-card">
+                    <h2><i class="fas fa-chart-line"></i> Password Strength Analyzer</h2>
+                    <p>Analyze your password strength with detailed entropy calculation and security recommendations.</p>
+                    
+                    <div class="input-group">
+                        <input type="password" id="passwordInput" placeholder="Enter password to analyze..." autocomplete="off">
+                        <button id="toggleVisibility" class="toggle-btn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="strength-meter">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">Enter a password</span>
+                    </div>
+
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <h3>Entropy Score</h3>
+                            <div class="score" id="entropyScore">0</div>
+                            <small>Higher is better</small>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>Character Count</h3>
+                            <div class="score" id="charCount">0</div>
+                            <small>Minimum 12 recommended</small>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>Time to Crack</h3>
+                            <div class="score" id="crackTime">Instant</div>
+                            <small>Estimated at 1B attempts/sec</small>
+                        </div>
+                    </div>
+
+                    <div class="checks-list">
+                        <h3>Security Checks</h3>
+                        <div class="check-item" id="lengthCheck">
+                            <i class="fas fa-times"></i>
+                            <span>At least 12 characters</span>
+                        </div>
+                        <div class="check-item" id="uppercaseCheck">
+                            <i class="fas fa-times"></i>
+                            <span>Contains uppercase letters</span>
+                        </div>
+                        <div class="check-item" id="lowercaseCheck">
+                            <i class="fas fa-times"></i>
+                            <span>Contains lowercase letters</span>
+                        </div>
+                        <div class="check-item" id="numbersCheck">
+                            <i class="fas fa-times"></i>
+                            <span>Contains numbers</span>
+                        </div>
+                        <div class="check-item" id="symbolsCheck">
+                            <i class="fas fa-times"></i>
+                            <span>Contains special characters</span>
+                        </div>
+                        <div class="check-item" id="patternsCheck">
+                            <i class="fas fa-times"></i>
+                            <span>No common patterns</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password Generator -->
+            <section id="generator" class="tab-content">
+                <div class="tool-card">
+                    <h2><i class="fas fa-key"></i> Secure Password Generator</h2>
+                    <p>Generate cryptographically secure passwords with customizable criteria.</p>
+                    
+                    <div class="generator-controls">
+                        <div class="control-group">
+                            <label for="modeSelect">Mode</label>
+                            <select id="modeSelect">
+                                <option value="random" selected>Random (classic)</option>
+                                <option value="passphrase">Passphrase (Diceware)</option>
+                                <option value="pronounceable">Pronounceable</option>
+                                <option value="template">Pattern template</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="lengthSlider">Length: <span id="lengthValue">16</span></label>
+                            <input type="range" id="lengthSlider" min="8" max="128" value="16">
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeUppercase" checked>
+                                <span class="checkmark"></span>
+                                Uppercase (A-Z)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeLowercase" checked>
+                                <span class="checkmark"></span>
+                                Lowercase (a-z)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeNumbers" checked>
+                                <span class="checkmark"></span>
+                                Numbers (0-9)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="includeSymbols" checked>
+                                <span class="checkmark"></span>
+                                Symbols (!@#$%^&*)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeSimilar">
+                                <span class="checkmark"></span>
+                                Exclude similar characters (0O1lI)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeAmbiguous">
+                                <span class="checkmark"></span>
+                                Exclude ambiguous characters
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="enforceAllSets" checked>
+                                <span class="checkmark"></span>
+                                Require at least one of each selected set
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="avoidRuns" checked>
+                                <span class="checkmark"></span>
+                                Avoid runs and sequences
+                            </label>
+                        </div>
+
+                        <div id="passphraseOptions" class="options-row hidden" aria-hidden="true">
+                            <div class="control-inline">
+                                <label for="passphraseWordCount">Words</label>
+                                <input id="passphraseWordCount" type="number" min="3" max="12" value="5">
+                            </div>
+                            <div class="control-inline">
+                                <label for="passphraseSeparator">Separator</label>
+                                <input id="passphraseSeparator" type="text" value="-" maxlength="3">
+                            </div>
+                            <div class="control-inline">
+                                <label for="passphraseCase">Casing</label>
+                                <select id="passphraseCase">
+                                    <option value="lower">lowercase</option>
+                                    <option value="title" selected>Title Case</option>
+                                    <option value="upper">UPPERCASE</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="pronounceableOptions" class="options-row hidden" aria-hidden="true">
+                            <div class="control-inline">
+                                <label for="pronounceableSyllables">Syllables</label>
+                                <input id="pronounceableSyllables" type="number" min="3" max="12" value="6">
+                            </div>
+                        </div>
+
+                        <div id="templateOptions" class="options-row hidden" aria-hidden="true">
+                            <div class="control-inline">
+                                <label for="templatePattern">Template</label>
+                                <input id="templatePattern" type="text" value="Cvcv-####" aria-describedby="templateHelp">
+                                <small id="templateHelp">C=upper, c=lower, v=vowel, #=digit, *=symbol</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="generated-password">
+                        <input type="text" id="generatedPassword" readonly placeholder="Generated password will appear here...">
+                        <button id="copyPassword" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button id="generateNew" class="generate-btn">
+                            <i class="fas fa-sync-alt"></i> Generate New
+                        </button>
+                    </div>
+
+                    <div class="password-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Entropy:</span>
+                            <span class="stat-value" id="generatedEntropy">0 bits</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Strength:</span>
+                            <span class="stat-value" id="generatedStrength">Weak</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Breach Checker -->
+            <section id="breach" class="tab-content">
+                <div class="tool-card">
+                    <h2><i class="fas fa-search"></i> Password Breach Checker</h2>
+                    <p>Check if your password has been compromised in known data breaches using HaveIBeenPwned API.</p>
+                    
+                    <div class="breach-checker">
+                        <div class="input-group">
+                            <input type="password" id="breachPasswordInput" placeholder="Enter password to check..." autocomplete="off">
+                            <button id="checkBreach" class="check-btn">
+                                <i class="fas fa-search"></i> Check Breach
+                            </button>
+                        </div>
+                        
+                        <div class="breach-result" id="breachResult">
+                            <div class="breach-status">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Enter a password to check for breaches</span>
+                            </div>
+                        </div>
+                        
+                        <div class="breach-info">
+                            <h3>How it works:</h3>
+                            <ul>
+                                <li>Your password is hashed using SHA-1</li>
+                                <li>Only the first 5 characters of the hash are sent to the API</li>
+                                <li>The full password never leaves your device</li>
+                                <li>Results are compared locally for privacy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password Manager -->
+            <section id="manager" class="tab-content">
+                <div class="tool-card">
+                    <h2><i class="fas fa-lock"></i> Local Password Manager</h2>
+                    <p>Store and manage your passwords locally with client-side encryption. No data leaves your device.</p>
+                    
+                    <div class="manager-controls">
+                        <button id="addPassword" class="add-btn">
+                            <i class="fas fa-plus"></i> Add New Password
+                        </button>
+                        <button id="exportPasswords" class="export-btn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button id="importPasswords" class="import-btn">
+                            <i class="fas fa-upload"></i> Import
+                        </button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+
+                    <div class="password-list" id="passwordList">
+                        <div class="empty-state">
+                            <i class="fas fa-key"></i>
+                            <h3>No passwords stored</h3>
+                            <p>Add your first password to get started</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 PassWorks - Built for cybersecurity education</p>
+            <p>All data stays on your device - no external storage</p>
+        </footer>
+    </div>
+
+    <!-- Add Password Modal -->
+    <div id="addPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Password</h3>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="siteName">Site/Service Name</label>
+                    <input type="text" id="siteName" placeholder="e.g., Gmail, Facebook, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username/Email</label>
+                    <input type="text" id="username" placeholder="Your username or email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input-group">
+                        <input type="password" id="password" placeholder="Enter password">
+                        <button type="button" id="togglePasswordVisibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes (Optional)</label>
+                    <textarea id="notes" placeholder="Additional notes..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelAdd">Cancel</button>
+                <button class="save-btn" id="savePassword">Save Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding / Help Modal -->
+    <div id="onboardingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="onboardingTitle">Welcome · Tips & Shortcuts</h3>
+                <button class="close-btn" id="closeOnboarding"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>Use strong, unique passwords. Prefer passphrases or random strings.</li>
+                    <li>Breach checker sends only the first 5 chars of SHA‑1 hash (k‑Anon).</li>
+                    <li>All data stays local to your browser. Export regularly for backup.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <label class="checkbox-label"><input type="checkbox" id="dontShowOnboarding"><span class="checkmark"></span> Don’t show again</label>
+                <div style="flex:1"></div>
+                <button class="save-btn" id="closeOnboardingPrimary">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <section id="settings" class="tab-content">
+        <div class="tool-card">
+            <h2><i class="fas fa-gear"></i> Settings</h2>
+            <div class="analysis-grid">
+                <div class="analysis-item">
+                    <h3>Lock Timeout (minutes)</h3>
+                    <input type="number" id="lockTimeout" min="1" max="120" value="15" aria-label="Lock timeout in minutes">
+                    <small>Auto-lock manager after inactivity</small>
+                </div>
+                <div class="analysis-item">
+                    <h3>Generator Defaults</h3>
+                    <div class="mb-1">
+                        <label for="defaultLength">Default length</label>
+                        <input type="number" id="defaultLength" min="12" max="128" value="16">
+                    </div>
+                    <button class="save-btn" id="saveSettings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

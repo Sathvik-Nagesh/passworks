@@ -1,0 +1,10 @@
+{
+  "name": "PassWorks",
+  "short_name": "PassWorks",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#00ff88",
+  "icons": []
+}
+
